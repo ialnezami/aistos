@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { prisma } from '@/lib/prisma';
+import { prisma, handlePrismaError } from '@/lib/prisma';
+import { handleStripeError } from '@/lib/stripe-errors';
 
 enum DebtStatus {
   PENDING = 'PENDING',
@@ -67,7 +68,9 @@ export async function POST(request: NextRequest) {
                    'http://localhost:3000';
 
     // Create Stripe Checkout Session
-    const session = await stripe.checkout.sessions.create({
+    let session;
+    try {
+      session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
         {

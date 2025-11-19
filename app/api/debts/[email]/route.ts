@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma, handlePrismaError } from '@/lib/prisma';
 
 export async function GET(
   request: NextRequest,
@@ -52,12 +52,16 @@ export async function GET(
     });
   } catch (error) {
     console.error('Error fetching debt:', error);
+    
+    // Handle Prisma errors
+    const prismaError = handlePrismaError(error);
     return NextResponse.json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
+        error: prismaError.message,
+        code: prismaError.code,
       },
-      { status: 500 }
+      { status: prismaError.statusCode }
     );
   }
 }

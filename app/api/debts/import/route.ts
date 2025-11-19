@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { parseCSVFile } from '@/lib/csv-parser';
-import { prisma } from '@/lib/prisma';
+import { prisma, handlePrismaError } from '@/lib/prisma';
 import { DebtStatus } from '@prisma/client';
 import path from 'path';
 import fs from 'fs/promises';
@@ -86,9 +86,11 @@ export async function POST(request: NextRequest) {
           importResults.created++;
         }
       } catch (error) {
+        const prismaError = handlePrismaError(error);
         importResults.errors.push(
-          `Failed to import ${debt.email}: ${error instanceof Error ? error.message : 'Unknown error'}`
+          `Failed to import ${debt.email}: ${prismaError.message}`
         );
+        console.error(`Import error for ${debt.email}:`, error);
       }
     }
 
@@ -107,6 +109,20 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Import error:', error);
+    
+    // Handle Prisma errors
+    if (error && typeof error === 'object' && 'code' in error) {
+      const prismaError = handlePrismaError(error);
+      return NextResponse.json(
+        {
+          success: false,
+          error: prismaError.message,
+          code: prismaError.code,
+        },
+        { status: prismaError.statusCode }
+      );
+    }
+    
     return NextResponse.json(
       {
         success: false,
