@@ -179,12 +179,12 @@
   - AI assistants used (if applicable) cursor mainly (& chatgpt)
 
 ### Task 7.2: Git Repository Setup
-- [ ] Initialize Git repository
-- [ ] Create `.gitignore` file
-- [ ] Add `.env` to gitignore
-- [ ] Commit initial project structure
-- [ ] Include `file.csv` in repository
-- [ ] Create meaningful commit messages
+- [x] Initialize Git repository
+- [x] Create `.gitignore` file
+- [x] Add `.env` to gitignore
+- [x] Commit initial project structure
+- [x] Include `file.csv` in repository
+- [x] Create meaningful commit messages
 
 ### Task 7.3: Final Checks
 - [ ] Verify all requirements are met
