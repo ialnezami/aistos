@@ -116,11 +116,11 @@
 - [x] Return session ID or client secret to frontend
 
 ### Task 5.3: Payment Processing (React Components)
-- [ ] Create payment page component using React
-- [ ] Use Stripe Elements or redirect to Stripe Checkout
-- [ ] Handle payment success callback (redirect to success page)
-- [ ] Handle payment failure/cancellation (redirect to cancel page)
-- [ ] Style payment UI with TailwindCSS and Shadcn/ui
+- [x] Create payment page component using React
+- [x] Use Stripe Elements or redirect to Stripe Checkout
+- [x] Handle payment success callback (redirect to success page)
+- [x] Handle payment failure/cancellation (redirect to cancel page)
+- [x] Style payment UI with TailwindCSS and Shadcn/ui
 
 ### Task 5.4: Webhook Handler (Next.js API Route)
 - [ ] Create Next.js API route for Stripe webhooks (`/api/webhooks/stripe`)

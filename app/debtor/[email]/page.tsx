@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -27,12 +27,14 @@ interface DebtData {
 export default function DebtorDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [debt, setDebt] = useState<DebtData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isPaying, setIsPaying] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const email = params.email as string;
+  const canceled = searchParams?.get('canceled') === 'true';
 
   useEffect(() => {
     const fetchDebt = async () => {
@@ -123,6 +125,21 @@ export default function DebtorDetailPage() {
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="max-w-2xl mx-auto space-y-4">
+        {canceled && (
+          <Card className="border-yellow-500 mb-4">
+            <CardHeader>
+              <CardTitle className="text-xl font-bold text-yellow-600">
+                Paiement annulé
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-muted-foreground text-sm">
+                Le paiement a été annulé. Vous pouvez réessayer ci-dessous.
+              </p>
+            </CardContent>
+          </Card>
+        )}
+
         <Button
           onClick={() => router.push('/debtor')}
           variant="outline"
@@ -218,13 +235,33 @@ export default function DebtorDetailPage() {
                   onClick={async () => {
                     setIsPaying(true);
                     try {
-                      // Will be implemented in Task 5.3
-                      // For now, just show loading state
-                      await new Promise((resolve) => setTimeout(resolve, 1000));
-                      alert('Fonctionnalité de paiement à venir');
+                      // Create payment session
+                      const response = await fetch('/api/payments/create', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                          email: debt.email,
+                          debtId: debt.id,
+                        }),
+                      });
+
+                      const result = await response.json();
+
+                      if (!result.success || !result.url) {
+                        throw new Error(result.error || 'Failed to create payment session');
+                      }
+
+                      // Redirect to Stripe Checkout
+                      window.location.href = result.url;
                     } catch (err) {
                       console.error('Payment error:', err);
-                    } finally {
+                      alert(
+                        err instanceof Error
+                          ? err.message
+                          : 'Une erreur est survenue lors de la création de la session de paiement'
+                      );
                       setIsPaying(false);
                     }
                   }}
@@ -235,7 +272,7 @@ export default function DebtorDetailPage() {
                   {isPaying ? (
                     <span className="flex items-center justify-center gap-2">
                       <Spinner size="sm" />
-                      Traitement du paiement...
+                      Redirection vers le paiement...
                     </span>
                   ) : (
                     'Payer maintenant'
