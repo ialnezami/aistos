@@ -81,15 +81,15 @@
 - [x] Style with TailwindCSS
 
 ### Task 4.2: Display Debt Information
-- [ ] Create Next.js API route to fetch debt by email (`/api/debts/[email]`)
-- [ ] Use Prisma Client to query database
-- [ ] Create React component to display debtor information:
+- [x] Create Next.js API route to fetch debt by email (`/api/debts/[email]`)
+- [x] Use Prisma Client to query database
+- [x] Create React component to display debtor information:
   - Name (using Shadcn/ui Card or similar)
   - Email
   - Debt Subject
   - Debt Amount (formatted currency with Intl.NumberFormat)
   - Status (with Badge component from Shadcn/ui)
-- [ ] Style the page with TailwindCSS and Shadcn/ui components
+- [x] Style the page with TailwindCSS and Shadcn/ui components
 
 ### Task 4.3: Pay Button Implementation
 - [ ] Add "Pay" button using Shadcn/ui Button component
