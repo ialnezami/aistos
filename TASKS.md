@@ -100,11 +100,11 @@
 ## Phase 5: Stripe Integration
 
 ### Task 5.1: Stripe Configuration
-- [ ] Get Stripe test API keys
-- [ ] Add Stripe secret key to `.env` (server-side)
-- [ ] Add Stripe publishable key to `.env.local` or Next.js env vars
-- [ ] Initialize Stripe client in API routes (using Bun runtime)
-- [ ] Install `@stripe/stripe-js` for frontend
+- [x] Get Stripe test API keys
+- [x] Add Stripe secret key to `.env` (server-side)
+- [x] Add Stripe publishable key to `.env.local` or Next.js env vars
+- [x] Initialize Stripe client in API routes (using Bun runtime)
+- [x] Install `@stripe/stripe-js` for frontend
 
 ### Task 5.2: Payment Session Creation (Next.js API Route)
 - [ ] Create Next.js API route to initiate Stripe payment (`/api/payments/create`)
