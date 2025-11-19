@@ -123,12 +123,12 @@
 - [x] Style payment UI with TailwindCSS and Shadcn/ui
 
 ### Task 5.4: Webhook Handler (Next.js API Route)
-- [ ] Create Next.js API route for Stripe webhooks (`/api/webhooks/stripe`)
-- [ ] Verify webhook signature using Stripe SDK
-- [ ] Handle `payment_intent.succeeded` or `checkout.session.completed` event
-- [ ] Use Prisma Client to update debt status to 'PAID' in database
-- [ ] Store Stripe payment ID in database
-- [ ] Return appropriate HTTP status codes
+- [x] Create Next.js API route for Stripe webhooks (`/api/webhooks/stripe`)
+- [x] Verify webhook signature using Stripe SDK
+- [x] Handle `payment_intent.succeeded` or `checkout.session.completed` event
+- [x] Use Prisma Client to update debt status to 'PAID' in database
+- [x] Store Stripe payment ID in database
+- [x] Return appropriate HTTP status codes
 
 ### Task 5.5: Status Update After Payment
 - [ ] Update debt status after successful payment (via webhook)
