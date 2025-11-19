@@ -147,11 +147,11 @@
 - [x] Test edge cases (invalid email, already paid debt, etc.) (Cypress E2E tests)
 
 ### Task 6.2: Error Handling
-- [ ] Add error handling for Prisma database connection failures
-- [ ] Handle Stripe API errors gracefully
-- [ ] Add user-friendly error messages using Shadcn/ui Alert components
-- [ ] Implement error boundaries in React components
-- [ ] Log errors appropriately (console or logging service)
+- [x] Add error handling for Prisma database connection failures
+- [x] Handle Stripe API errors gracefully
+- [x] Add user-friendly error messages using Shadcn/ui Alert components
+- [x] Implement error boundaries in React components
+- [x] Log errors appropriately (console or logging service)
 
 ## Phase 7: Documentation & Finalization
 
