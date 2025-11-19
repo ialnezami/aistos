@@ -140,11 +140,11 @@
 ## Phase 6: Testing & Validation
 
 ### Task 6.1: Manual Testing
-- [ ] Test CSV import with provided `file.csv`
-- [ ] Test debtor page lookup for each email in CSV
-- [ ] Test Stripe payment flow (test mode)
-- [ ] Verify status updates after payment
-- [ ] Test edge cases (invalid email, already paid debt, etc.)
+- [x] Test CSV import with provided `file.csv` (Cypress E2E tests)
+- [x] Test debtor page lookup for each email in CSV (Cypress E2E tests)
+- [x] Test Stripe payment flow (test mode) (Cypress E2E tests)
+- [x] Verify status updates after payment (Cypress E2E tests)
+- [x] Test edge cases (invalid email, already paid debt, etc.) (Cypress E2E tests)
 
 ### Task 6.2: Error Handling
 - [ ] Add error handling for Prisma database connection failures
@@ -176,7 +176,7 @@
 - [ ] **Ressources utilisées** section:
   - Documentation links (Stripe, framework, etc.)
   - Tools used
-  - AI assistants used (if applicable)
+  - AI assistants used (if applicable) cursor mainly (& chatgpt)
 
 ### Task 7.2: Git Repository Setup
 - [ ] Initialize Git repository

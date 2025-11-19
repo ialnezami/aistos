@@ -38,5 +38,10 @@ next-env.d.ts
 # bun
 bun.lockb
 
+# cypress
+cypress/videos
+cypress/screenshots
+.cypress
+
 
 /lib/generated/prisma
