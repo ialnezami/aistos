@@ -178,22 +178,19 @@ export default function DebtorDetailPage() {
   if (error || !debt) {
     return (
       <div className="container mx-auto px-4 py-16">
-        <div className="max-w-2xl mx-auto">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl font-bold text-destructive">
-                Erreur
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
+        <div className="max-w-2xl mx-auto space-y-4">
+          <Alert variant="destructive">
+            <AlertTriangle className="h-4 w-4" />
+            <AlertTitle>Erreur</AlertTitle>
+            <AlertDescription>
+              <p className="mb-4">
                 {error || 'Dette introuvable pour cette adresse email'}
               </p>
-              <Button onClick={() => router.push('/debtor')} variant="outline">
+              <Button onClick={() => router.push('/debtor')} variant="outline" size="sm">
                 Retour à la recherche
               </Button>
-            </CardContent>
-          </Card>
+            </AlertDescription>
+          </Alert>
         </div>
       </div>
     );
@@ -327,18 +324,24 @@ export default function DebtorDetailPage() {
                       const result = await response.json();
 
                       if (!result.success || !result.url) {
-                        throw new Error(result.error || 'Failed to create payment session');
+                        const errorMessage = result.error || 'Failed to create payment session';
+                        throw new Error(errorMessage);
                       }
 
                       // Redirect to Stripe Checkout
                       window.location.href = result.url;
                     } catch (err) {
                       console.error('Payment error:', err);
-                      alert(
-                        err instanceof Error
-                          ? err.message
-                          : 'Une erreur est survenue lors de la création de la session de paiement'
-                      );
+                      const errorMessage = err instanceof Error
+                        ? err.message
+                        : 'Une erreur est survenue lors de la création de la session de paiement';
+                      
+                      toast({
+                        title: 'Erreur de paiement',
+                        description: errorMessage,
+                        variant: 'destructive',
+                      });
+                      
                       setIsPaying(false);
                     }
                   }}
