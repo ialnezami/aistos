@@ -92,10 +92,10 @@
 - [x] Style the page with TailwindCSS and Shadcn/ui components
 
 ### Task 4.3: Pay Button Implementation
-- [ ] Add "Pay" button using Shadcn/ui Button component
-- [ ] Show button only if status is 'PENDING'
-- [ ] Disable button if debt is already paid
-- [ ] Add loading state with Shadcn/ui Spinner or Button loading prop
+- [x] Add "Pay" button using Shadcn/ui Button component
+- [x] Show button only if status is 'PENDING'
+- [x] Disable button if debt is already paid
+- [x] Add loading state with Shadcn/ui Spinner or Button loading prop
 
 ## Phase 5: Stripe Integration
 

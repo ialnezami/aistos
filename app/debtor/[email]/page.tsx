@@ -5,7 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { DebtStatus } from '@prisma/client';
+import { Spinner } from '@/components/ui/spinner';
+
+enum DebtStatus {
+  PENDING = 'PENDING',
+  PAID = 'PAID',
+}
 
 interface DebtData {
   id: number;
@@ -24,6 +29,7 @@ export default function DebtorDetailPage() {
   const router = useRouter();
   const [debt, setDebt] = useState<DebtData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isPaying, setIsPaying] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const email = params.email as string;
@@ -209,14 +215,44 @@ export default function DebtorDetailPage() {
             {debt.status === DebtStatus.PENDING && (
               <div className="pt-4">
                 <Button
-                  onClick={() => {
-                    // Will be implemented in Task 5.3
-                    alert('Fonctionnalité de paiement à venir');
+                  onClick={async () => {
+                    setIsPaying(true);
+                    try {
+                      // Will be implemented in Task 5.3
+                      // For now, just show loading state
+                      await new Promise((resolve) => setTimeout(resolve, 1000));
+                      alert('Fonctionnalité de paiement à venir');
+                    } catch (err) {
+                      console.error('Payment error:', err);
+                    } finally {
+                      setIsPaying(false);
+                    }
                   }}
                   className="w-full"
                   size="lg"
+                  disabled={isPaying}
                 >
-                  Payer maintenant
+                  {isPaying ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Spinner size="sm" />
+                      Traitement du paiement...
+                    </span>
+                  ) : (
+                    'Payer maintenant'
+                  )}
+                </Button>
+              </div>
+            )}
+
+            {debt.status === DebtStatus.PAID && (
+              <div className="pt-4">
+                <Button
+                  className="w-full"
+                  size="lg"
+                  disabled
+                  variant="outline"
+                >
+                  Déjà payé
                 </Button>
               </div>
             )}
