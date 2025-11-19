@@ -131,11 +131,11 @@
 - [x] Return appropriate HTTP status codes
 
 ### Task 5.5: Status Update After Payment
-- [ ] Update debt status after successful payment (via webhook)
-- [ ] Create success page component (Next.js route)
-- [ ] Refresh debtor page to show updated status (React state or refetch)
-- [ ] Add success message/notification using Shadcn/ui Toast or Alert component
-- [ ] (Optional) Implement WebSocket for real-time status updates
+- [x] Update debt status after successful payment (via webhook)
+- [x] Create success page component (Next.js route)
+- [x] Refresh debtor page to show updated status (React state or refetch)
+- [x] Add success message/notification using Shadcn/ui Toast or Alert component
+- [x] (Optional) Implement WebSocket for real-time status updates (Polling implemented as alternative)
 
 ## Phase 6: Testing & Validation
 

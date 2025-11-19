@@ -6,16 +6,25 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle2 } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 
 export default function PaymentSuccessPage() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const { toast } = useToast();
   const [sessionId, setSessionId] = useState<string | null>(null);
 
   useEffect(() => {
     const sessionIdParam = searchParams.get('session_id');
     setSessionId(sessionIdParam);
-  }, [searchParams]);
+    
+    // Show success toast
+    toast({
+      title: 'Paiement réussi !',
+      description: 'Votre paiement a été traité avec succès.',
+      variant: 'success',
+    });
+  }, [searchParams, toast]);
 
   return (
     <div className="container mx-auto px-4 py-16">

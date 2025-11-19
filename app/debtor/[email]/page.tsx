@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Spinner } from '@/components/ui/spinner';
+import { useToast } from '@/components/ui/use-toast';
 
 enum DebtStatus {
   PENDING = 'PENDING',
@@ -32,37 +33,111 @@ export default function DebtorDetailPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isPaying, setIsPaying] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+  const pollingIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const email = params.email as string;
   const canceled = searchParams?.get('canceled') === 'true';
+  const paymentSuccess = searchParams?.get('success') === 'true';
+
+  const fetchDebt = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const response = await fetch(`/api/debts/${encodeURIComponent(email)}`);
+      const result = await response.json();
+
+      if (!result.success) {
+        setError(result.error || 'Failed to fetch debt information');
+        return;
+      }
+
+      setDebt(result.data);
+    } catch (err) {
+      setError('An error occurred while fetching debt information');
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchDebt = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        const response = await fetch(`/api/debts/${encodeURIComponent(email)}`);
-        const result = await response.json();
-
-        if (!result.success) {
-          setError(result.error || 'Failed to fetch debt information');
-          return;
-        }
-
-        setDebt(result.data);
-      } catch (err) {
-        setError('An error occurred while fetching debt information');
-        console.error(err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     if (email) {
       fetchDebt();
     }
   }, [email]);
+
+  // Show success toast if payment was successful
+  useEffect(() => {
+    if (paymentSuccess && debt) {
+      toast({
+        title: 'Paiement réussi !',
+        description: 'Votre dette a été marquée comme payée.',
+        variant: 'success',
+      });
+    }
+  }, [paymentSuccess, debt, toast]);
+
+  // Poll for status updates after payment (if still pending)
+  useEffect(() => {
+    if (!debt || debt.status === DebtStatus.PAID) {
+      // Clear any existing polling if debt is paid
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
+        pollingIntervalRef.current = null;
+      }
+      return;
+    }
+
+    // Poll every 3 seconds for status updates (webhook might take a moment)
+    pollingIntervalRef.current = setInterval(async () => {
+      try {
+        const response = await fetch(`/api/debts/${encodeURIComponent(email)}`);
+        const result = await response.json();
+
+        if (result.success && result.data) {
+          const updatedDebt = result.data;
+          
+          // If status changed to PAID, update state and show toast
+          setDebt((prevDebt) => {
+            if (prevDebt && updatedDebt.status === DebtStatus.PAID && prevDebt.status === DebtStatus.PENDING) {
+              toast({
+                title: 'Paiement confirmé !',
+                description: 'Votre paiement a été traité avec succès.',
+                variant: 'success',
+              });
+              // Clear interval when payment is confirmed
+              if (pollingIntervalRef.current) {
+                clearInterval(pollingIntervalRef.current);
+                pollingIntervalRef.current = null;
+              }
+              return updatedDebt;
+            }
+            return updatedDebt;
+          });
+        }
+      } catch (err) {
+        console.error('Error polling debt status:', err);
+      }
+    }, 3000);
+
+    // Clean up interval after 30 seconds or when component unmounts
+    const timeoutId = setTimeout(() => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
+        pollingIntervalRef.current = null;
+      }
+    }, 30000);
+
+    return () => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
+        pollingIntervalRef.current = null;
+      }
+      clearTimeout(timeoutId);
+    };
+  }, [debt?.status, email, toast]);
 
   const formatCurrency = (amount: string): string => {
     const numAmount = parseFloat(amount);
