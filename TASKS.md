@@ -15,11 +15,11 @@
 - [x] Set up environment variables file (`.env.example`)
 
 ### Task 1.3: Install Required Dependencies
-- [ ] Install Stripe SDK (`stripe`)
-- [ ] Install CSV parser (`csv-parse` or `papaparse`)
-- [ ] Install Prisma (`@prisma/client`, `prisma`)
-- [ ] Install validation library (Zod recommended)
-- [ ] Install WebSocket library (if implementing real-time features)
+- [x] Install Stripe SDK (`stripe`)
+- [x] Install CSV parser (`csv-parse` or `papaparse`)
+- [x] Install Prisma (`@prisma/client`, `prisma`)
+- [x] Install validation library (Zod recommended)
+- [x] Install WebSocket library (if implementing real-time features)
 
 ### Task 1.4: Set Up UI Framework
 - [ ] Install and configure TailwindCSS
