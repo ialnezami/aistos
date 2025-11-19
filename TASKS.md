@@ -36,7 +36,7 @@
 - [x] Configure Prisma client generation
 
 ### Task 2.2: Create Database Schema
-- [ ] Define Debt model in Prisma schema with fields:
+- [x] Define Debt model in Prisma schema with fields:
   - `id` (Int, @id, @default(autoincrement()))
   - `name` (String)
   - `email` (String, @unique or indexed)
@@ -46,9 +46,9 @@
   - `stripePaymentId` (String?, optional)
   - `createdAt` (DateTime, @default(now()))
   - `updatedAt` (DateTime, @updatedAt)
-- [ ] Generate Prisma Client (`bunx prisma generate`)
-- [ ] Create and run migration (`bunx prisma migrate dev`)
-- [ ] Verify database connection
+- [x] Generate Prisma Client (`bunx prisma generate`)
+- [x] Create and run migration (`bunx prisma migrate dev`)
+- [x] Verify database connection
 
 ## Phase 3: CSV Import Functionality
 
