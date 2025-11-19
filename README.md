@@ -62,8 +62,29 @@ Application web de gestion et paiement de dettes avec intégration Stripe.
 
 ### Lancer le projet
 
-**Mode développement** :
+**Option 1: Script automatique (recommandé)** :
 ```bash
+./startwithdocker.sh
+```
+
+Ce script va :
+- Vérifier que Docker est en cours d'exécution
+- Démarrer la base de données PostgreSQL
+- Configurer Prisma (génération du client et migrations)
+- Démarrer l'application Next.js
+
+**Option 2: Mode développement manuel** :
+```bash
+# 1. Démarrer la base de données
+docker-compose up -d
+
+# 2. Générer le client Prisma
+bun run prisma:generate
+
+# 3. Lancer les migrations
+bun run prisma:migrate
+
+# 4. Démarrer l'application
 bun run dev
 ```
 
