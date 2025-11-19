@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -49,7 +50,12 @@ export default function DebtorLookupPage() {
 
   return (
     <div className="container mx-auto px-4 py-16">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto space-y-4">
+        <Link href="/">
+          <Button variant="outline" size="sm">
+            ← Retour à l'accueil
+          </Button>
+        </Link>
         <Card>
           <CardHeader>
             <CardTitle className="text-2xl font-bold">Rechercher une dette</CardTitle>

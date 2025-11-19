@@ -214,13 +214,22 @@ export default function DebtorDetailPage() {
           </Card>
         )}
 
-        <Button
-          onClick={() => router.push('/debtor')}
-          variant="outline"
-          className="mb-4"
-        >
-          ← Retour
-        </Button>
+        <div className="flex gap-2 mb-4">
+          <Button
+            onClick={() => router.push('/debtor')}
+            variant="outline"
+            size="sm"
+          >
+            ← Retour à la recherche
+          </Button>
+          <Button
+            onClick={() => router.push('/')}
+            variant="ghost"
+            size="sm"
+          >
+            Accueil
+          </Button>
+        </div>
 
         <Card>
           <CardHeader>
