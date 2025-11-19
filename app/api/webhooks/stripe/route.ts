@@ -75,16 +75,24 @@ export async function POST(request: NextRequest) {
           const paymentId = session.payment_intent as string || session.id;
 
           // Update debt status in database
-          await prisma.debt.update({
-            where: { id: parseInt(debtId) },
-            data: {
-              status: DebtStatus.PAID,
-              stripePaymentId: paymentId,
-              updatedAt: new Date(),
-            },
-          });
+          try {
+            await prisma.debt.update({
+              where: { id: parseInt(debtId) },
+              data: {
+                status: DebtStatus.PAID,
+                stripePaymentId: paymentId,
+                updatedAt: new Date(),
+              },
+            });
 
-          console.log(`Debt ${debtId} marked as paid. Payment ID: ${paymentId}`);
+            console.log(`Debt ${debtId} marked as paid. Payment ID: ${paymentId}`);
+          } catch (dbError) {
+            const prismaError = handlePrismaError(dbError);
+            console.error(`Failed to update debt ${debtId}:`, prismaError);
+            // Don't fail the webhook, but log the error
+            // Stripe will retry if we return an error
+            throw new Error(`Database update failed: ${prismaError.message}`);
+          }
         }
 
         break;
@@ -105,18 +113,24 @@ export async function POST(request: NextRequest) {
 
           if (debt && debt.status === DebtStatus.PENDING) {
             // Update debt status
-            await prisma.debt.update({
-              where: { id: debt.id },
-              data: {
-                status: DebtStatus.PAID,
-                stripePaymentId: paymentIntent.id,
-                updatedAt: new Date(),
-              },
-            });
+            try {
+              await prisma.debt.update({
+                where: { id: debt.id },
+                data: {
+                  status: DebtStatus.PAID,
+                  stripePaymentId: paymentIntent.id,
+                  updatedAt: new Date(),
+                },
+              });
 
-            console.log(
-              `Debt ${debt.id} marked as paid via payment_intent. Payment ID: ${paymentIntent.id}`
-            );
+              console.log(
+                `Debt ${debt.id} marked as paid via payment_intent. Payment ID: ${paymentIntent.id}`
+              );
+            } catch (dbError) {
+              const prismaError = handlePrismaError(dbError);
+              console.error(`Failed to update debt ${debt.id}:`, prismaError);
+              throw new Error(`Database update failed: ${prismaError.message}`);
+            }
           }
         }
 
