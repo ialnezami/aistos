@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
-import { prisma } from '@/lib/prisma';
+import { prisma, handlePrismaError } from '@/lib/prisma';
 import Stripe from 'stripe';
 
 // Configure route to receive raw body for signature verification

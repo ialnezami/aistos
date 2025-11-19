@@ -95,7 +95,20 @@ export async function POST(request: NextRequest) {
         debtSubject: debt.debtSubject,
       },
       customer_email: debt.email,
-    });
+      });
+    } catch (stripeError) {
+      const stripeErrorHandled = handleStripeError(stripeError);
+      console.error('Stripe error creating session:', stripeError);
+      return NextResponse.json(
+        {
+          success: false,
+          error: stripeErrorHandled.userMessage,
+          code: stripeErrorHandled.code,
+          message: stripeErrorHandled.message,
+        },
+        { status: stripeErrorHandled.statusCode }
+      );
+    }
 
     return NextResponse.json({
       success: true,
@@ -104,6 +117,20 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error creating payment session:', error);
+    
+    // Handle Prisma errors
+    if (error && typeof error === 'object' && 'code' in error) {
+      const prismaError = handlePrismaError(error);
+      return NextResponse.json(
+        {
+          success: false,
+          error: prismaError.message,
+          code: prismaError.code,
+        },
+        { status: prismaError.statusCode }
+      );
+    }
+    
     return NextResponse.json(
       {
         success: false,
