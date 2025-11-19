@@ -9,10 +9,10 @@
 - [x] Configure Bun as runtime (update package.json scripts)
 
 ### Task 1.2: Set Up Bun Runtime
-- [ ] Install Bun (if not already installed)
-- [ ] Update `package.json` scripts to use Bun
-- [ ] Configure Bun for development and production
-- [ ] Set up environment variables file (`.env.example`)
+- [x] Install Bun (if not already installed)
+- [x] Update `package.json` scripts to use Bun
+- [x] Configure Bun for development and production
+- [x] Set up environment variables file (`.env.example`)
 
 ### Task 1.3: Install Required Dependencies
 - [ ] Install Stripe SDK (`stripe`)
