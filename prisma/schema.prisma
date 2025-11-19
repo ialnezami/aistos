@@ -20,7 +20,7 @@ model Debt {
   name            String
   email           String     @unique @map("email")
   debtSubject     String     @map("debt_subject")
-  debtAmount      Decimal    @map("debt_amount") @db.Decimal(10, 2)
+  debtAmount      Decimal    @map("debt_amount") @db.Decimal(15, 2)
   status          DebtStatus @default(PENDING)
   stripePaymentId String?    @map("stripe_payment_id")
   createdAt       DateTime   @default(now()) @map("created_at")
@@ -36,7 +36,7 @@ model Debt {
 model PaymentHistory {
   id            Int      @id @default(autoincrement())
   debtId        Int      @map("debt_id")
-  amount        Decimal  @map("amount") @db.Decimal(10, 2)
+  amount        Decimal  @map("amount") @db.Decimal(15, 2)
   stripePaymentId String @map("stripe_payment_id")
   status        String   // 'completed', 'failed', 'refunded'
   paidAt        DateTime @default(now()) @map("paid_at")
