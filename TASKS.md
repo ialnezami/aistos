@@ -53,10 +53,10 @@
 ## Phase 3: CSV Import Functionality
 
 ### Task 3.1: CSV Parser Implementation
-- [ ] Create CSV parsing utility function
-- [ ] Validate CSV structure (check required columns)
-- [ ] Handle data type conversions (debtAmount to number)
-- [ ] Add error handling for malformed CSV
+- [x] Create CSV parsing utility function
+- [x] Validate CSV structure (check required columns)
+- [x] Handle data type conversions (debtAmount to number)
+- [x] Add error handling for malformed CSV
 
 ### Task 3.2: Import API Route (Next.js)
 - [ ] Create Next.js API route (`/api/import` or `/api/debts/import`)
