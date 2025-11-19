@@ -67,10 +67,10 @@
 - [x] Return import results (success count, errors) as JSON response
 
 ### Task 3.3: Data Validation
-- [ ] Validate email format
-- [ ] Validate debtAmount is positive number
-- [ ] Validate required fields are present
-- [ ] Add error messages for invalid data
+- [x] Validate email format
+- [x] Validate debtAmount is positive number
+- [x] Validate required fields are present
+- [x] Add error messages for invalid data
 
 ## Phase 4: Debtor Page (Frontend)
 
