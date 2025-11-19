@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { parseCSVFile } from '@/lib/csv-parser';
 import { prisma, handlePrismaError } from '@/lib/prisma';
+import { sendDebtCreationEmail } from '@/lib/email';
 import { DebtStatus } from '@prisma/client';
 import path from 'path';
 import fs from 'fs/promises';
@@ -84,6 +85,19 @@ export async function POST(request: NextRequest) {
           importResults.updated++;
         } else {
           importResults.created++;
+          
+          // Send notification email for new debts
+          try {
+            await sendDebtCreationEmail(
+              debt.email,
+              debt.name,
+              debt.debtAmount.toString(),
+              debt.debtSubject
+            );
+          } catch (emailError) {
+            console.error(`Failed to send email to ${debt.email}:`, emailError);
+            // Don't fail the import if email fails
+          }
         }
       } catch (error) {
         const prismaError = handlePrismaError(error);

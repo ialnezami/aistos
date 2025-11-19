@@ -196,11 +196,11 @@
 ## Optional Enhancements (If Time Permits)
 
 ### Task 8.1: Additional Features
-- [ ] Add list view of all debts (admin view)
-- [ ] Add search/filter functionality
-- [ ] Add payment history
-- [ ] Add email notifications
-- [ ] Add authentication/authorization
+- [x] Add list view of all debts (admin view)
+- [x] Add search/filter functionality
+- [x] Add payment history
+- [x] Add email notifications
+- [x] Add authentication/authorization
 
 ### Task 8.2: UI/UX Improvements
 - [ ] Responsive design for mobile (TailwindCSS responsive classes)

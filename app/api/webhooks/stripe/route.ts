@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
 import { prisma, handlePrismaError } from '@/lib/prisma';
+import { sendPaymentConfirmationEmail } from '@/lib/email';
 import Stripe from 'stripe';
 
 // Configure route to receive raw body for signature verification
@@ -76,7 +77,7 @@ export async function POST(request: NextRequest) {
 
           // Update debt status in database
           try {
-            await prisma.debt.update({
+            const updatedDebt = await prisma.debt.update({
               where: { id: parseInt(debtId) },
               data: {
                 status: DebtStatus.PAID,
@@ -84,6 +85,25 @@ export async function POST(request: NextRequest) {
                 updatedAt: new Date(),
               },
             });
+
+            // Create payment history record
+            await prisma.paymentHistory.create({
+              data: {
+                debtId: updatedDebt.id,
+                amount: updatedDebt.debtAmount,
+                stripePaymentId: paymentId,
+                status: 'completed',
+              },
+            });
+
+            // Send confirmation email
+            await sendPaymentConfirmationEmail(
+              updatedDebt.email,
+              updatedDebt.name,
+              updatedDebt.debtAmount.toString(),
+              updatedDebt.debtSubject,
+              paymentId
+            );
 
             console.log(`Debt ${debtId} marked as paid. Payment ID: ${paymentId}`);
           } catch (dbError) {

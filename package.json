@@ -17,7 +17,8 @@
     "prisma:studio": "bunx prisma studio",
     "test:e2e": "cypress run",
     "test:e2e:open": "cypress open",
-    "test:e2e:headed": "cypress run --headed"
+    "test:e2e:headed": "cypress run --headed",
+    "create-admin": "bun run scripts/create-admin.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",

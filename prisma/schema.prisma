@@ -25,7 +25,36 @@ model Debt {
   stripePaymentId String?    @map("stripe_payment_id")
   createdAt       DateTime   @default(now()) @map("created_at")
   updatedAt       DateTime   @updatedAt @map("updated_at")
+  paymentHistory  PaymentHistory[]
 
   @@map("debts")
   @@index([email])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model PaymentHistory {
+  id            Int      @id @default(autoincrement())
+  debtId        Int      @map("debt_id")
+  amount        Decimal  @map("amount") @db.Decimal(10, 2)
+  stripePaymentId String @map("stripe_payment_id")
+  status        String   // 'completed', 'failed', 'refunded'
+  paidAt        DateTime @default(now()) @map("paid_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  debt          Debt     @relation(fields: [debtId], references: [id], onDelete: Cascade)
+
+  @@map("payment_history")
+  @@index([debtId])
+  @@index([paidAt])
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String   // Hashed password
+  email     String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("admins")
 }
