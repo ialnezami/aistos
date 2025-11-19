@@ -156,24 +156,24 @@
 ## Phase 7: Documentation & Finalization
 
 ### Task 7.1: Create README.md
-- [ ] **Démarrage** section:
+- [x] **Démarrage** section:
   - Installation instructions
   - Environment variables setup
   - How to run the project
   - How to test (including Stripe test cards)
-- [ ] **Choix d'architecture** section:
+- [x] **Choix d'architecture** section:
   - Framework choice and reasoning
   - Database choice and reasoning
   - Architecture decisions
   - Assumptions made
   - Known limitations
-- [ ] **Avant une mise en production** section:
+- [x] **Avant une mise en production** section:
   - Security improvements needed
   - Performance optimizations
   - Monitoring and logging
   - Error handling improvements
   - Testing strategy
-- [ ] **Ressources utilisées** section:
+- [x] **Ressources utilisées** section:
   - Documentation links (Stripe, framework, etc.)
   - Tools used
   - AI assistants used (if applicable) cursor mainly (& chatgpt)
