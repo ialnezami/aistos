@@ -59,12 +59,12 @@
 - [x] Add error handling for malformed CSV
 
 ### Task 3.2: Import API Route (Next.js)
-- [ ] Create Next.js API route (`/api/import` or `/api/debts/import`)
-- [ ] Read `file.csv` from project directory
-- [ ] Parse CSV data using chosen parser
-- [ ] Use Prisma Client to insert records into database
-- [ ] Handle duplicate entries (skip or update using upsert)
-- [ ] Return import results (success count, errors) as JSON response
+- [x] Create Next.js API route (`/api/import` or `/api/debts/import`)
+- [x] Read `file.csv` from project directory
+- [x] Parse CSV data using chosen parser
+- [x] Use Prisma Client to insert records into database
+- [x] Handle duplicate entries (skip or update using upsert)
+- [x] Return import results (success count, errors) as JSON response
 
 ### Task 3.3: Data Validation
 - [ ] Validate email format
