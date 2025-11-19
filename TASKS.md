@@ -3,10 +3,10 @@
 ## Phase 1: Project Setup & Configuration
 
 ### Task 1.1: Initialize Next.js Project with TypeScript
-- [ ] Create Next.js project with TypeScript template (`npx create-next-app@latest`)
-- [ ] Configure TypeScript config (`tsconfig.json`)
-- [ ] Set up project folder structure (app directory or pages directory)
-- [ ] Configure Bun as runtime (update package.json scripts)
+- [x] Create Next.js project with TypeScript template (`npx create-next-app@latest`)
+- [x] Configure TypeScript config (`tsconfig.json`)
+- [x] Set up project folder structure (app directory or pages directory)
+- [x] Configure Bun as runtime (update package.json scripts)
 
 ### Task 1.2: Set Up Bun Runtime
 - [ ] Install Bun (if not already installed)
