@@ -30,10 +30,10 @@
 ## Phase 2: Database Setup with Prisma
 
 ### Task 2.1: Prisma Configuration
-- [ ] Initialize Prisma (`bunx prisma init`)
-- [ ] Configure PostgreSQL database URL in `.env`
-- [ ] Set up Prisma schema file (`prisma/schema.prisma`)
-- [ ] Configure Prisma client generation
+- [x] Initialize Prisma (`bunx prisma init`)
+- [x] Configure PostgreSQL database URL in `.env`
+- [x] Set up Prisma schema file (`prisma/schema.prisma`)
+- [x] Configure Prisma client generation
 
 ### Task 2.2: Create Database Schema
 - [ ] Define Debt model in Prisma schema with fields:
