@@ -107,13 +107,13 @@
 - [x] Install `@stripe/stripe-js` for frontend
 
 ### Task 5.2: Payment Session Creation (Next.js API Route)
-- [ ] Create Next.js API route to initiate Stripe payment (`/api/payments/create`)
-- [ ] Use Bun runtime with Stripe SDK
-- [ ] Create Stripe Checkout Session or Payment Intent
-- [ ] Set amount from debtAmount (convert to cents)
-- [ ] Add metadata (debt ID, email)
-- [ ] Configure success/cancel URLs (Next.js routes)
-- [ ] Return session ID or client secret to frontend
+- [x] Create Next.js API route to initiate Stripe payment (`/api/payments/create`)
+- [x] Use Bun runtime with Stripe SDK
+- [x] Create Stripe Checkout Session or Payment Intent
+- [x] Set amount from debtAmount (convert to cents)
+- [x] Add metadata (debt ID, email)
+- [x] Configure success/cancel URLs (Next.js routes)
+- [x] Return session ID or client secret to frontend
 
 ### Task 5.3: Payment Processing (React Components)
 - [ ] Create payment page component using React
