@@ -75,10 +75,10 @@
 ## Phase 4: Debtor Page (Frontend)
 
 ### Task 4.1: Create Debtor Lookup Page (Next.js)
-- [ ] Create Next.js page route (e.g., `/debtor` or `/debtor/[email]`)
-- [ ] Create page component using React
-- [ ] Add email input form using Shadcn/ui components (Input, Button)
-- [ ] Style with TailwindCSS
+- [x] Create Next.js page route (e.g., `/debtor` or `/debtor/[email]`)
+- [x] Create page component using React
+- [x] Add email input form using Shadcn/ui components (Input, Button)
+- [x] Style with TailwindCSS
 
 ### Task 4.2: Display Debt Information
 - [ ] Create Next.js API route to fetch debt by email (`/api/debts/[email]`)
